@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -49,6 +50,27 @@ public class editprofile extends AppCompatActivity {
     private static final String TAG = "editprofile";
     private EditText NewDoctorname;
     private EditText NewDoctornum;
+    private ImageView updatepropic;
+    private FirebaseStorage firebaseStorage;
+    private static int PICK_IMAGE = 123;
+    private StorageReference storageReference;
+    Uri imagepath;
+    Bitmap bitmap;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK && data != null && data.getData() != null ){
+            imagepath = data.getData();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imagepath);
+                updatepropic.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
 
 
@@ -72,8 +94,17 @@ public class editprofile extends AppCompatActivity {
         Change = findViewById(R.id.btnchange);
         NewDoctorname = (EditText) findViewById(R.id.etdocname);
         NewDoctornum = (EditText) findViewById(R.id.etdocnum);
+        updatepropic = (ImageView)findViewById(R.id.defaultpropic3);
         firebaseauth = FirebaseAuth.getInstance();
         firebasedatabase = FirebaseDatabase.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        final StorageReference storageReference = firebaseStorage.getReference();
+        storageReference.child(firebaseauth.getUid()).child("Images/Profile Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(updatepropic);
+            }
+        });
 
 
 
@@ -143,7 +174,36 @@ public class editprofile extends AppCompatActivity {
                 UserProfile userprofile = new UserProfile(name, email, date, gender, number, doctorname, doctornum);
                 databasereference.setValue(userprofile);
 
+                StorageReference imagereference = storageReference.child(firebaseauth.getUid()).child("Images").child("Profile Pic");
+                UploadTask uploadTask = imagereference.putFile(imagepath);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(editprofile.this, "Failed", Toast.LENGTH_SHORT).show();
+
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(editprofile.this, "Success", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
                 finish();
+            }
+        });
+
+
+        updatepropic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select"), PICK_IMAGE);
+
             }
         });
     }

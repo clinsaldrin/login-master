@@ -4,7 +4,7 @@
     android:layout_height="160dp"
     android:padding="20dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/defaultpropic"
         android:layout_width="75dp"
         android:layout_height="75dp"
