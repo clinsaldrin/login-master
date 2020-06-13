@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "686254263509",
+    "firebase_url": "https://overwatch-7b007.firebaseio.com",
+    "project_id": "overwatch-7b007",
+    "storage_bucket": "overwatch-7b007.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686254263509:android:5f0dd820043734cc7aa65c",
+        "android_client_info": {
+          "package_name": "com.example.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686254263509-shg3td8v1qkh4c0o04afq590bhiml4am.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtmAUFFQpzYwOEUJOefgvoQwjDoKOKVM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686254263509-shg3td8v1qkh4c0o04afq590bhiml4am.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">OverWatch</string>
+
+    <string-array name="sex">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+</resources>
