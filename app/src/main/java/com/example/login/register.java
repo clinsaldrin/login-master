@@ -37,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -102,6 +103,8 @@ public class register extends AppCompatActivity {
         DOB = (TextView) findViewById(R.id.tvdob);
         sex = (Spinner)findViewById(R.id.spin1);
         defaultpic = findViewById(R.id.defaultpropic4);
+
+        Picasso.get().load(R.drawable.propic).into(defaultpic);
 
         defaultpic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,7 +176,7 @@ public class register extends AppCompatActivity {
 
                     progressdialog.dismiss();
 
-                    Toast.makeText(register.this, "fill all", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(register.this, "fill all including a profile pic", Toast.LENGTH_SHORT).show();
 
                 }
                 else {

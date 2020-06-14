@@ -50,7 +50,7 @@ public class editprofile extends AppCompatActivity {
     private static final String TAG = "editprofile";
     private EditText NewDoctorname;
     private EditText NewDoctornum;
-    private ImageView updatepropic;
+    private ImageView Updatepropic;
     private FirebaseStorage firebaseStorage;
     private static int PICK_IMAGE = 123;
     private StorageReference storageReference;
@@ -63,7 +63,7 @@ public class editprofile extends AppCompatActivity {
             imagepath = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imagepath);
-                updatepropic.setImageBitmap(bitmap);
+                Updatepropic.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -94,7 +94,7 @@ public class editprofile extends AppCompatActivity {
         Change = findViewById(R.id.btnchange);
         NewDoctorname = (EditText) findViewById(R.id.etdocname);
         NewDoctornum = (EditText) findViewById(R.id.etdocnum);
-        updatepropic = (ImageView)findViewById(R.id.defaultpropic3);
+        Updatepropic = findViewById(R.id.defaultpropic3);
         firebaseauth = FirebaseAuth.getInstance();
         firebasedatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
@@ -102,9 +102,21 @@ public class editprofile extends AppCompatActivity {
         storageReference.child(firebaseauth.getUid()).child("Images/Profile Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(updatepropic);
+                Picasso.get().load(uri).into(Updatepropic);
             }
         });
+
+        Updatepropic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select"), PICK_IMAGE);
+
+            }
+        });
+
 
 
 
@@ -173,7 +185,6 @@ public class editprofile extends AppCompatActivity {
 
                 UserProfile userprofile = new UserProfile(name, email, date, gender, number, doctorname, doctornum);
                 databasereference.setValue(userprofile);
-
                 StorageReference imagereference = storageReference.child(firebaseauth.getUid()).child("Images").child("Profile Pic");
                 UploadTask uploadTask = imagereference.putFile(imagepath);
                 uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -190,20 +201,7 @@ public class editprofile extends AppCompatActivity {
                     }
                 });
 
-
                 finish();
-            }
-        });
-
-
-        updatepropic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select"), PICK_IMAGE);
-
             }
         });
     }
