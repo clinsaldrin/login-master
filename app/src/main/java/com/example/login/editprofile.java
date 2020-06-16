@@ -56,6 +56,7 @@ public class editprofile extends AppCompatActivity {
     private StorageReference storageReference;
     Uri imagepath;
     Bitmap bitmap;
+    private String regToken;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -182,8 +183,10 @@ public class editprofile extends AppCompatActivity {
                 number = Number.getText().toString();
                 doctorname = NewDoctorname.getText().toString();
                 doctornum = NewDoctornum.getText().toString();
+                final String token = regToken;
+                final String heartrate = "70.0";
 
-                UserProfile userprofile = new UserProfile(name, email, date, gender, number, doctorname, doctornum);
+                UserProfile userprofile = new UserProfile(name, email, date, gender, number, doctorname, doctornum, token, heartrate);
                 databasereference.setValue(userprofile);
                 StorageReference imagereference = storageReference.child(firebaseauth.getUid()).child("Images").child("Profile Pic");
                 UploadTask uploadTask = imagereference.putFile(imagepath);

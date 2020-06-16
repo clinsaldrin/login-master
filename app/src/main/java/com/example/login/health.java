@@ -40,6 +40,7 @@ public class health extends AppCompatActivity {
     private TextView headername;
     private FirebaseStorage firebaseStorage;
     private ImageView HeaderPropic;
+    private TextView Pulse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class health extends AppCompatActivity {
         View headerview = navigationview.getHeaderView(0);
         headername = headerview.findViewById(R.id.tvheadername);
         HeaderPropic = headerview.findViewById(R.id.defaultpropic);
+        Pulse = findViewById(R.id.Pulsetext);
 
         Menu menu = navigationview.getMenu();
         MenuItem menuItem = menu.findItem(R.id.switch_item);
@@ -80,6 +82,7 @@ public class health extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
                 headername.setText(userProfile.getUsername());
+                Pulse.setText("Pulse Rate: " + userProfile.getUserpulse());
             }
 
             @Override

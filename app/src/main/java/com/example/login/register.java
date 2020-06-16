@@ -38,6 +38,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.google.firebase.iid.FirebaseInstanceId;
+
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -65,6 +67,7 @@ public class register extends AppCompatActivity {
     Bitmap bitmap;
     private EditText Doctorname;
     private EditText Doctornum;
+    private String regToken;
 
 
     @Override
@@ -95,6 +98,7 @@ public class register extends AppCompatActivity {
         Signin = (TextView) findViewById(R.id.tvregin);
         Doctorname = (EditText) findViewById(R.id.etdoctorname);
         Doctornum = (EditText) findViewById(R.id.etdoctornum);
+        regToken =  FirebaseInstanceId.getInstance().getToken();
 
         firebaseauth = FirebaseAuth.getInstance();
         firebaseStorage =FirebaseStorage.getInstance();
@@ -170,6 +174,9 @@ public class register extends AppCompatActivity {
                 number = Number.getText().toString();
                 doctorname = Doctorname.getText().toString();
                 doctornum = Doctornum.getText().toString();
+                final String token = regToken;
+                final String heartrate = "70.0";
+
 
 
                 if (((String) name).isEmpty() || ((String) password).isEmpty() || ((String) email).isEmpty() || ((String) number).isEmpty() || imagepath == null  || ((String) doctorname).isEmpty()  || ((String) doctornum).isEmpty()  )  {
@@ -220,7 +227,7 @@ public class register extends AppCompatActivity {
 
                                                     }
                                                 });
-                                                UserProfile userprofile = new UserProfile(name, email, date, gender, number, doctorname, doctornum);
+                                                UserProfile userprofile = new UserProfile(name, email, date, gender, number, doctorname, doctornum, token, heartrate);
                                                 databasereference.setValue(userprofile);
                                                 progressdialog.dismiss();
                                                 Toast.makeText(register.this,"Succefully registered, please verify", Toast.LENGTH_SHORT).show();

@@ -23,6 +23,18 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textSize="32sp" />
+                <TextView
+                    android:id="@+id/swipe"
+                    android:layout_width="294dp"
+                    android:layout_height="81dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="-----> Swipe for options"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="20sp" />
         </LinearLayout>
 
         <com.google.android.material.navigation.NavigationView

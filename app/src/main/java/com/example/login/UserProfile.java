@@ -9,10 +9,12 @@ public class UserProfile {
     public String usernumber;
     public String userdocname;
     public String userdocnum;
+    public String userregtoken;
+    public String userpulse;
 
     public UserProfile (){}
 
-    public UserProfile(String username, String useremail, String userdob, String usergender, String usernumber, String userdocname, String userdocnum) {
+    public UserProfile(String username, String useremail, String userdob, String usergender, String usernumber, String userdocname, String userdocnum, String userregtoken, String userpulse) {
         this.username = username;
         this.useremail = useremail;
         this.userdob = userdob;
@@ -20,6 +22,8 @@ public class UserProfile {
         this.usernumber = usernumber;
         this.userdocname = userdocname;
         this.userdocnum = userdocnum;
+        this.userregtoken = userregtoken;
+        this.userpulse = userpulse;
     }
 
     public String getUsername() {
@@ -76,5 +80,21 @@ public class UserProfile {
 
     public void setUserdocnum(String userdocnum) {
         this.userdocnum = userdocnum;
+    }
+
+    public String getUserregtoken() {
+        return userregtoken;
+    }
+
+    public void setUserregtoken(String userregtoken) {
+        this.userregtoken = userregtoken;
+    }
+
+    public String getUserpulse() {
+        return userpulse;
+    }
+
+    public void setUserpulse(String userpulse) {
+        this.userpulse = userpulse;
     }
 }
